@@ -1,11 +1,10 @@
-# Getting Started with Create React App
+# 👋 Something to do
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was generated with [React](https://github.com/facebook/react) version 18+
 
-## Available Scripts
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4dc62dcb-776e-4fe7-9049-069465371016/deploy-status)](https://app.netlify.com/sites/sweet-smakager-84bfb0/deploys)
 
-In the project directory, you can run:
-
+[Live demo](https://something-to-do.netlify.app)
 ### `npm start`
 
 Runs the app in the development mode.\

@@ -9,8 +9,12 @@ export const BoredInfo = ({ bored }: { bored: BoredInterface | null }) => {
 
             {
                 bored ?
-                    (<div className="grid"><h1>What about {bored.activity}</h1></div>):
-                    (<img  src="https://media.tenor.com/Wyjcf1uN1AoAAAAd/cat-zoning-out-cat-stare.gif" width="40%" />)
+                    (
+                        <div className="grid">
+                            { bored.error ? bored.error : <h1>What about {bored.activity}</h1> }
+                        </div>
+                    ):
+                    (<img alt="bored" src="https://media.tenor.com/Wyjcf1uN1AoAAAAd/cat-zoning-out-cat-stare.gif" width="40%" />)
             }
         </div>
     )

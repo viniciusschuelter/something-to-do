@@ -20,6 +20,7 @@ export interface BoredInterface {
     price: number;
     key: number;
     link?: string;
+    error?: string;
 }
 
 export interface BoredRangeValues {

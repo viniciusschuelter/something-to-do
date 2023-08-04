@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BoredFilter, BoredInterface, initialBoredFilters } from '../interfaces/bored.interface';
-import { useQueryClient } from "@tanstack/react-query";
-import { fetcher } from "../utils/react-query.util";
-import { BoredInfo } from "./BoredInfo";
+import { useQueryClient } from '@tanstack/react-query';
+import { fetcher } from '../utils/react-query.util';
+import { BoredInfo } from './BoredInfo';
 import { BoredFilters } from './BoredFilters';
 
 
@@ -13,16 +13,17 @@ export const Bored = () => {
     const [filters, setFilters] = useState<BoredFilter>(initialBoredFilters);
 
     const [bored, setBored] = useState<BoredInterface | null>(null);
-    const [isLoading, setIsLoading] = useState<BoredInterface | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
 
     const applyFilters = async () => {
-        setIsLoading(true as any);
+        setIsLoading(true);
         const data = await queryClient.fetchQuery(
             ['https://www.boredapi.com/api/activity', filters],
-            ({ queryKey }: any) => fetcher({ queryKey } as any))
-        setBored(data as any);
-        setIsLoading(false as any);
+            ({ queryKey }: any) => fetcher({ queryKey } as any)
+        );
+        setBored(data as BoredInterface);
+        setIsLoading(false);
     };
 
     return (
