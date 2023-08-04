@@ -34,7 +34,7 @@ export type BoredFilter = Pick<BoredInterface, 'type' | 'participants'> & BoredR
 
 export const initialBoredFilters: BoredFilter = {
     participants: 1,
-    type: BoredTypeEnum.diy,
+    type: BoredTypeEnum.education,
     minaccessibility: 0,
     maxaccessibility: 1,
     minprice: 0,

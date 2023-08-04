@@ -11,7 +11,7 @@ export const Header = () => {
 
             <div className="widget widget-lg">
                 <a className="btn" href="https://github.com/viniciusschuelter"
-                   rel="noopener" target="_blank"
+                   rel="noreferrer" target="_blank"
                    aria-label="Follow @viniciusschuelter on GitHub">
                     <svg viewBox="0 0 16 16" width="16" height="16" className="octicon octicon-mark-github"
                          aria-hidden="true">

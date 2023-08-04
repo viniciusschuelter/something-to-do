@@ -4,18 +4,21 @@ import { BoredFilter, BoredTypeEnum} from "../interfaces/bored.interface";
 export const BoredFilters = ({filters, setFilters}: { filters: BoredFilter, setFilters: any }) => {
 
     const boredTypesEnum: BoredTypeEnum[] = Object.values(BoredTypeEnum);
-    const onChangeFilters = (key: any, value: any) => setFilters({...filters, [key]: value});
+    const onChangeFilters = (key: any, value: any) => {
+        document.getElementById(`summary-${key}`)?.click()
+        setFilters({...filters, [key]: value})
+    };
     const arrayNumber: number[] = new Array(10).fill(0).map((_, i) => i + 1);
 
     return (
         <div>
             <div className="grid">
                 <details role="list">
-                    <summary aria-haspopup="listbox">Participants: { filters.participants }</summary>
+                    <summary aria-haspopup="listbox" id="summary-participants">Participants: { filters.participants }</summary>
                     <ul role="listbox" >
                         {
-                            arrayNumber.map( (num) => (
-                                <li onClick={ () => onChangeFilters('participants', num)}>{ num }</li>)
+                            arrayNumber?.map( (num) => (
+                                <li onClick={ () => onChangeFilters('participants', num) }>{ num }</li>)
                             )
                         }
                     </ul>
@@ -36,7 +39,7 @@ export const BoredFilters = ({filters, setFilters}: { filters: BoredFilter, setF
 
             <div className="grid">
                 <details role="list">
-                    <summary aria-haspopup="listbox">Type: { filters.type }</summary>
+                    <summary aria-haspopup="listbox" id="summary-type">Type: { filters.type }</summary>
                     <ul role="listbox">
                         {
                             boredTypesEnum.map( (boredEnum) => (
