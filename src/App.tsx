@@ -1,17 +1,21 @@
 import React from 'react';
 import './App.css';
+import {Header} from "./components/Header";
+import {Footer} from "./components/Footer";
+import {Bored} from "./components/Bored";
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
-      <main className="container">
-          <div className="grid">
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
-          </div>
-
-      </main>
+      <QueryClientProvider client={queryClient}>
+          <main className="container">
+              <Header />
+              <Bored />
+              <Footer />
+          </main>
+      </QueryClientProvider>
   );
 }
 
