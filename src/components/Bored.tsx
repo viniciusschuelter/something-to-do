@@ -1,85 +1,46 @@
 import React, { useState } from 'react';
-import { useGetFilteredBored } from '../api/bored.api';
-import {BoredFilters, BoredInterface, BoredTypeEnum, initialBoredFilters} from '../interfaces/bored.interface';
+import { BoredFilter, BoredInterface, initialBoredFilters } from '../interfaces/bored.interface';
+import { useQueryClient } from "@tanstack/react-query";
+import { fetcher } from "../utils/react-query.util";
+import { BoredInfo } from "./BoredInfo";
+import { BoredFilters } from './BoredFilters';
 
 
 export const Bored = () => {
 
-    const [filters, setFilters] = useState<BoredFilters>(initialBoredFilters);
+    const queryClient = useQueryClient();
 
-    // const { data, isLoading } = useGetFilteredBored();
-
+    const [filters, setFilters] = useState<BoredFilter>(initialBoredFilters);
 
     const [bored, setBored] = useState<BoredInterface | null>(null);
     const [isLoading, setIsLoading] = useState<BoredInterface | null>(null);
 
-    const arrayNumber: number[] = new Array(10).fill(0).map((_, i) => i + 1);
 
-    const boredTypesEnum: BoredTypeEnum[] = Object.values(BoredTypeEnum);
-
-    const onChangeFilters = (key: any, value: any) => {
-        console.log(value)
-        setFilters({...filters, [key]: value})
-    };
-
-
-    const ApplyFilters = () => {
-        const { data, isLoading } = useGetFilteredBored();
-        setBored(data);
-        setIsLoading(isLoading);
+    const applyFilters = async () => {
+        setIsLoading(true as any);
+        const data = await queryClient.fetchQuery(
+            ['https://www.boredapi.com/api/activity', filters],
+            ({ queryKey }: any) => fetcher({ queryKey } as any))
+        setBored(data as any);
+        setIsLoading(false as any);
     };
 
     return (
-        <>
-            <div className="grid">
-                <details role="list">
-                    <summary aria-haspopup="listbox">Participants: { filters.participants }</summary>
-                    <ul role="listbox" >
-                        {
-                            arrayNumber.map( (num) => (
-                                <li onClick={ () => onChangeFilters('participants', num)}>{ num }</li>)
-                            )
-                        }
-                    </ul>
-                </details>
-                <label htmlFor="range">Accessibility (min: {filters.minaccessibility} - max: {filters.maxaccessibility})
-                    <div className="grid">
-                        <input type="range" min="0" max="1" step="0.01" id="minaccessibility"
-                               value={filters.minaccessibility}
-                               onChange={(e) => onChangeFilters('minaccessibility', e.target.value)}
-                        />
-                        <input type="range" min="0" max="1" step="0.01" id="maxaccessibility"
-                               value={filters.maxaccessibility}
-                               onChange={(e) => onChangeFilters('maxaccessibility', e.target.value)}
-                        />
-                    </div>
-                </label>
-            </div>
+        <div style={classBoredFilters}>
+            <BoredFilters  filters={filters} setFilters={setFilters} />
 
-            <div className="grid">
-                <details role="list">
-                    <summary aria-haspopup="listbox">Type: { filters.type }</summary>
-                    <ul role="listbox">
-                        {
-                            boredTypesEnum.map( (boredEnum) => (
-                                <li onClick={ () => onChangeFilters('type', boredEnum)}>{ boredEnum }</li>)
-                            )
-                        }
-                    </ul>
-                </details>
-                <label htmlFor="range">Price (min: {filters.minprice} - max: {filters.maxprice})
-                    <div className="grid">
-                        <input type="range" min="0" max="1" step="0.01" id="minprice" value={filters.minprice}
-                               onChange={(e) => onChangeFilters('minprice', e.target.value)}
-                        />
-                        <input type="range" min="0" max="1" step="0.01" id="maxprice" value={filters.maxprice}
-                               onChange={(e) => onChangeFilters('maxprice', e.target.value)}/>
-                    </div>
-                </label>
+            <BoredInfo bored={bored} />
 
-
-                <button aria-busy={!!isLoading} onClick={ApplyFilters}>Please wait…</button>
-            </div>
-        </>
+            <button aria-busy={!!isLoading} onClick={applyFilters}>
+                {isLoading ? 'Please wait...' : 'Give me Something to do'}
+            </button>
+        </div>
     )
+}
+
+const classBoredFilters = {
+    display: 'flex',
+    flexDirection: 'column' as 'row',
+    height: '100%',
+    justifyContent: 'space-between'
 }

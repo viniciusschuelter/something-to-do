@@ -1,22 +1,24 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header";
-import {Footer} from "./components/Footer";
-import {Bored} from "./components/Bored";
-import { QueryClient, QueryClientProvider } from 'react-query'
-
-const queryClient = new QueryClient()
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { Bored } from "./components/Bored";
 
 function App() {
   return (
-      <QueryClientProvider client={queryClient}>
-          <main className="container">
-              <Header />
-              <Bored />
-              <Footer />
-          </main>
-      </QueryClientProvider>
+      <main className="container" style={styleApp}>
+          <Header />
+          <Bored />
+          <Footer />
+      </main>
   );
 }
 
 export default App;
+
+const styleApp = {
+    display: 'flex',
+    flexDirection: 'column' as 'row',
+    height: '100vh'
+}
+

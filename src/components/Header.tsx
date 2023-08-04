@@ -6,8 +6,9 @@ export const Header = () => {
         <header>
             <hgroup>
                 <h1>Something to do</h1>
-                <h2>Just a pure semantic HTML markup, without <code>.classes</code></h2>
+                <h2>I'm just <code>bored</code> and need something to do</h2>
             </hgroup>
+            <br/>
         </header>
     )
 }

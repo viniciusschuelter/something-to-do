@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {QueryClient, useQuery, useQueryClient, UseQueryOptions} from 'react-query';
-import { QueryFunctionContext } from 'react-query/types/core/types';
+import {QueryFunctionContext,  useQueryClient, UseQueryOptions} from '@tanstack/react-query';
+
 
 type QueryKeyT = [string, object | undefined];
 
@@ -21,7 +21,7 @@ export const useFetch = <T>(
     config?: UseQueryOptions<T, Error, T, QueryKeyT>
 ) => {
     const queryClient = useQueryClient();
-    const context = useQuery<T, Error, T, QueryKeyT>(
+    const context = queryClient.fetchQuery<T, Error, T, QueryKeyT>(
         [url!, params],
         ({ queryKey }: any) => fetcher({ queryKey } as any),
         {

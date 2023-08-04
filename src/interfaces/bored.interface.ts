@@ -29,9 +29,9 @@ export interface BoredRangeValues {
     maxprice: number;
 }
 
-export type BoredFilters = Pick<BoredInterface, 'type' | 'participants'> & BoredRangeValues;
+export type BoredFilter = Pick<BoredInterface, 'type' | 'participants'> & BoredRangeValues;
 
-export const initialBoredFilters: BoredFilters = {
+export const initialBoredFilters: BoredFilter = {
     participants: 1,
     type: BoredTypeEnum.diy,
     minaccessibility: 0,
